@@ -2,6 +2,8 @@
 *.log
 chatbot_debug
 test_*.php
-uploads/
+uploads/*
+!uploads/.gitkeep
+!uploads/**/.gitkeep
 .DS_Store
 Thumbs.db
