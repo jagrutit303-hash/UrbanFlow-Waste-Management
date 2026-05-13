@@ -1,0 +1,7 @@
+{
+    "name": "jagrutit303-hash/urbanflow",
+    "description": "UrbanFlow Waste Management System",
+    "require": {
+        "php": "^8.0"
+    }
+}

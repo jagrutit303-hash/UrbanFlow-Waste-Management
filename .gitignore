@@ -1,6 +1,7 @@
 .env
-chatbot_debug.log
-error_log
+*.log
+chatbot_debug
+test_*.php
 uploads/
 .DS_Store
 Thumbs.db
