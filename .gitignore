@@ -1,0 +1,7 @@
+.env
+chatbot_debug.log
+config.php
+error_log
+uploads/
+.DS_Store
+Thumbs.db
