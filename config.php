@@ -2,11 +2,11 @@
 /**
  * Database Configuration
  */
-$host = getenv('DB_HOST') ?: "localhost";
+$host = getenv('DB_HOST') ?: "127.0.0.1";
 $user = getenv('DB_USER') ?: "root";
-$pass = getenv('DB_PASS') ?: "";
+$pass = getenv('DB_PASS') ?: ""; // If you set a password in XAMPP, enter it here
 $db   = getenv('DB_NAME') ?: "urbanflow_db";
-$port = getenv('DB_PORT') ?: 3306; // Standard MySQL port
+$port = getenv('DB_PORT') ?: 3306; 
 
 // Use the 5th parameter for the port
 $conn = new mysqli($host, $user, $pass, $db, $port);
