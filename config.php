@@ -6,7 +6,7 @@ $host = getenv('DB_HOST') ?: "127.0.0.1";
 $user = getenv('DB_USER') ?: "root";
 $pass = getenv('DB_PASS') ?: "";
 $db   = getenv('DB_NAME') ?: "urbanflow_db";
-$port = getenv('DB_PORT') ?: 3306; // Default MySQL port
+$port = getenv('DB_PORT') ?: 3307; // Defaults to 3307 for local XAMPP, Vercel will use DB_PORT env var
 
 // Use the 5th parameter for the port
 $conn = new mysqli($host, $user, $pass, $db, $port);
