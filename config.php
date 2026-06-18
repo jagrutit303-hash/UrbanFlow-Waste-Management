@@ -41,14 +41,15 @@ if ($ssl) {
     //   $conn->ssl_set(NULL, NULL, '/path/to/ca.pem', NULL, NULL);
     $conn->ssl_set(NULL, NULL, NULL, NULL, NULL);
 
-    $connected = $conn->real_connect(
+    // @ suppresses the warning so headers-already-sent doesn't chain
+    $connected = @$conn->real_connect(
         $host, $user, $pass, $db, $port,
         NULL,
         MYSQLI_CLIENT_SSL | MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT
     );
 } else {
     // Local XAMPP — plain connection, no SSL needed
-    $connected = $conn->real_connect($host, $user, $pass, $db, $port);
+    $connected = @$conn->real_connect($host, $user, $pass, $db, $port);
 }
 
 if (!$connected || $conn->connect_errno) {
