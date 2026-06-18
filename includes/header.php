@@ -1,6 +1,6 @@
 <?php 
 ob_start();
-include('config.php'); 
+include(__DIR__ . '/../config.php'); 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
