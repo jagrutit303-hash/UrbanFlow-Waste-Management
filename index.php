@@ -1,7 +1,11 @@
 <?php 
 session_start();
 $isLoggedIn = isset($_SESSION['user_id']);
-$dashboardLink = ($isLoggedIn && $_SESSION['role'] == 'admin') ? 'admin.php' : 'dashboard.php';
+$dashboardLink = 'dashboard.php';
+if ($isLoggedIn) {
+    if ($_SESSION['role'] == 'admin') $dashboardLink = 'admin.php';
+    elseif ($_SESSION['role'] == 'collector') $dashboardLink = 'driver.php';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

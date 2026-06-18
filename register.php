@@ -36,6 +36,7 @@ if (isset($_SESSION['user_id'])) {
                 <label style="font-size: 0.8rem; font-weight: 600; color: #1e293b;">I am a...</label>
                 <select name="role">
                     <option value="citizen">Citizen (Report Waste)</option>
+                    <option value="collector">Driver (Collection Team)</option>
                     <option value="admin">Admin (Manage City)</option>
                 </select>
             </div>

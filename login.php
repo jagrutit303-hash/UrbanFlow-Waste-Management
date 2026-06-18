@@ -11,7 +11,7 @@ if (isset($_SESSION['user_id'])) {
 
 <div class="hero-container" style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
     <div class="glass-card" style="width: 400px; padding: 50px;" data-aos="zoom-in">
-        <h2 style="text-align: center; margin-bottom: 10px;">Citizen <span style="color:var(--primary)">Login</span></h2>
+        <h2 style="text-align: center; margin-bottom: 10px;">Portal <span style="color:var(--primary)">Login</span></h2>
         <p style="text-align: center; color: #64748b; font-size: 0.9rem; margin-bottom: 30px;">Access your smart city dashboard</p>
         
         <?php if(isset($_GET['error'])): ?>
