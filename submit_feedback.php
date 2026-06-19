@@ -37,22 +37,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $voice_feedback_path = null;
     if (!empty($_POST['voice_feedback_data'])) {
         $voice_data    = $_POST['voice_feedback_data'];
-        $voice_data    = str_replace('data:audio/webm;base64,', '', $voice_data);
-        $voice_data    = str_replace(' ', '+', $voice_data);
-        $audio_content = base64_decode($voice_data);
-
-        $filename       = 'fb_voice_' . time() . '_' . rand(1000, 9999) . '.webm';
-        $cloudinary_url = uploadBinaryToCloudinary($audio_content, $filename, 'urbanflow/feedback_audio');
+        
+        $cloudinary_url = uploadBinaryToCloudinary(base64_decode(str_replace(['data:audio/webm;base64,', ' '], ['', '+'], $voice_data)), 'fb_voice.webm', 'urbanflow/feedback_audio');
 
         if ($cloudinary_url) {
             $voice_feedback_path = $cloudinary_url;
         } else {
-            // Fallback: write locally (works on XAMPP)
-            $upload_dir = 'uploads/feedback_voice/';
-            if (!is_dir($upload_dir)) @mkdir($upload_dir, 0777, true);
-            $local_path = $upload_dir . $filename;
-            file_put_contents($local_path, $audio_content);
-            $voice_feedback_path = $local_path;
+            // Vercel Serverless fallback: store Base64 directly
+            $voice_feedback_path = $voice_data;
         }
     }
 
@@ -69,4 +61,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
-

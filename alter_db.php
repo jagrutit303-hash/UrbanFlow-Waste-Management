@@ -17,6 +17,11 @@ $statements = [
     "ALTER TABLE illegal_dumps ADD COLUMN citizen_lat DECIMAL(10, 6) DEFAULT NULL",
     "ALTER TABLE illegal_dumps ADD COLUMN citizen_lng DECIMAL(10, 6) DEFAULT NULL",
     
+    // 1.8 Change image paths to LONGTEXT to support Base64 since Vercel has no filesystem
+    "ALTER TABLE illegal_dumps MODIFY COLUMN image_path LONGTEXT DEFAULT NULL",
+    "ALTER TABLE illegal_dumps MODIFY COLUMN voice_note_path LONGTEXT DEFAULT NULL",
+    "ALTER TABLE feedback MODIFY COLUMN voice_feedback_path LONGTEXT DEFAULT NULL",
+    
     // 2. Clear old zones and insert Davangere zones
     "SET FOREIGN_KEY_CHECKS = 0",
     "TRUNCATE TABLE zones",

@@ -32,17 +32,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($cloudinary_url) {
                 $image_path = $cloudinary_url;
             } else {
-                // Fallback: try saving locally (works on XAMPP, ignored on Vercel)
-                $upload_dir = 'uploads/dumps/';
-                if (!is_dir($upload_dir)) {
-                    @mkdir($upload_dir, 0777, true);
-                }
-                $ext      = pathinfo($_FILES['dump_image']['name'], PATHINFO_EXTENSION);
-                $filename = 'dump_' . time() . '_' . rand(1000, 9999) . '.' . $ext;
-                $target   = $upload_dir . $filename;
-                if (move_uploaded_file($_FILES['dump_image']['tmp_name'], $target)) {
-                    $image_path = $target;
-                }
+                // Fallback: Store as Base64 Data URI in DB directly (Vercel Serverless safe)
+                $type = pathinfo($_FILES['dump_image']['name'], PATHINFO_EXTENSION);
+                $data = file_get_contents($_FILES['dump_image']['tmp_name']);
+                $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+                $image_path = $base64;
             }
         }
     }
@@ -51,22 +45,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $voice_note_path = null;
     if (!empty($_POST['voice_data'])) {
         $voice_data   = $_POST['voice_data'];
-        $voice_data   = str_replace('data:audio/webm;base64,', '', $voice_data);
-        $voice_data   = str_replace(' ', '+', $voice_data);
-        $audio_content = base64_decode($voice_data);
-
-        $filename        = 'voice_' . time() . '_' . rand(1000, 9999) . '.webm';
-        $cloudinary_url  = uploadBinaryToCloudinary($audio_content, $filename, 'urbanflow/audio');
+        
+        // Vercel Serverless safe fallback: just store the Base64 data directly!
+        $cloudinary_url  = uploadBinaryToCloudinary(base64_decode(str_replace(['data:audio/webm;base64,', ' '], ['', '+'], $voice_data)), 'voice.webm', 'urbanflow/audio');
 
         if ($cloudinary_url) {
             $voice_note_path = $cloudinary_url;
         } else {
-            // Fallback: write locally (works on XAMPP)
-            $upload_dir = 'uploads/voice/';
-            if (!is_dir($upload_dir)) @mkdir($upload_dir, 0777, true);
-            $local_path = $upload_dir . $filename;
-            file_put_contents($local_path, $audio_content);
-            $voice_note_path = $local_path;
+            $voice_note_path = $voice_data; // Store the original base64 payload
         }
     }
 
@@ -85,4 +71,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
-
