@@ -27,6 +27,7 @@ $statements = [
     (2, 'Vidyanagar',              14.4700, 75.9200),
     (3, 'PJ Extension',            14.4600, 75.9300),
     (4, 'Nittuvalli',              14.4500, 75.9000),
+    (5, 'Shamanur',                14.4800, 75.9400)",
     // 3. Update admin role
     "UPDATE users SET role = 'admin' WHERE email = 'admin@urbanflow.com'"
 ];
