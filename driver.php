@@ -572,3 +572,4 @@ $startLng = $last_loc ? $last_loc['lng'] : 75.9150;
 <?php endif; ?>
 
 <?php include('includes/footer.php'); ?>
+

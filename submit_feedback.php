@@ -1,6 +1,7 @@
 <?php
+require_once(__DIR__ . '/includes/auth_check.php');
+require_login();
 include('config.php');
-session_start();
 require_once('includes/cloudinary.php');
 
 if (!isset($_SESSION['user_id'])) {
@@ -68,3 +69,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+

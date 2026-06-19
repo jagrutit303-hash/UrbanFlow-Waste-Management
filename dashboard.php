@@ -1,6 +1,6 @@
 <?php 
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
-if (!isset($_SESSION['user_id'])) { header("Location: login.php"); exit(); }
+require_once(__DIR__ . '/includes/auth_check.php');
+require_login();
 include('includes/header.php');
 
 $uid = $_SESSION['user_id'];

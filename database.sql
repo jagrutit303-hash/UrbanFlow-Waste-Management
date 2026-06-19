@@ -47,6 +47,8 @@ CREATE TABLE IF NOT EXISTS disposal_requests (
     comment TEXT,
     urgency_level ENUM('Low', 'Medium', 'High') DEFAULT 'Low',
     status VARCHAR(50) DEFAULT 'Logged',
+    lat DECIMAL(10, 6) DEFAULT NULL,
+    lng DECIMAL(10, 6) DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (citizen_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (zone_id) REFERENCES zones(zone_id) ON DELETE CASCADE
@@ -119,21 +121,20 @@ INSERT INTO users (user_id, full_name, email, password, role) VALUES
 
 -- Zones (Davanagere Area)
 INSERT INTO zones (zone_id, zone_name, lat, lng) VALUES
-(1, 'North District, Sector 4', 14.4677, 75.9218),
-(2, 'South District, Sector 9', 14.4700, 75.9100),
-(3, 'Downtown Commercial',      14.4600, 75.9300),
-(4, 'West End Residential',     14.4500, 75.9000);
+(1, 'MCC B Block',             14.4577, 75.9118),
+(2, 'Vidyanagar',              14.4700, 75.9200),
+(3, 'PJ Extension',            14.4600, 75.9300),
+(4, 'Nittuvalli',              14.4500, 75.9000),
+(5, 'Shamanur',                14.4800, 75.9400);
 
--- Disposal Requests
 INSERT INTO disposal_requests (request_id, citizen_id, zone_id, category, comment, urgency_level, status) VALUES
-(1, 1, 1, 'Organic',    'Pick up from main gate.',         'Medium', 'Logged'),
-(2, 1, 2, 'Hazardous',  'Chemical waste in bin.',          'High',   'Dispatched'),
-(3, 1, 3, 'Recyclable', 'Old newspapers and boxes.',       'Low',    'Resolved');
+(1, 1, 1, 'Organic',    'Pick up from main gate.',    'Medium', 'Logged'),
+(2, 1, 2, 'Hazardous',  'Chemical waste in bin.',     'High',   'Dispatched'),
+(3, 1, 3, 'Recyclable', 'Old newspapers and boxes.',  'Low',    'Resolved');
 
--- Illegal Dump Reports
 INSERT INTO illegal_dumps (citizen_id, zone_id, description, severity, status, citizen_lat, citizen_lng) VALUES
-(1, 4, 'Large pile of construction debris dumped on sidewalk near the park entrance.', 'High',   'Reported',     14.4510, 75.9010),
-(1, 1, 'Bags of household trash left outside dumpster area.',                          'Medium', 'Under Review', 14.4680, 75.9220);
+(1, 4, 'Large pile of construction debris near park entrance.', 'High',   'Reported',     14.4510, 75.9010),
+(1, 1, 'Bags of household trash left outside dumpster area.',   'Medium', 'Under Review', 14.4580, 75.9120);
 
 -- Fleet Assignment for the Dispatched request
 INSERT INTO fleet_assignments (request_id, collector_id, vehicle_no) VALUES

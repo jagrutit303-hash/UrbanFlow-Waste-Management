@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once(__DIR__ . '/includes/auth_check.php');
+require_login();
 include('config.php');
 
 // Only collectors can resolve tasks
@@ -45,3 +46,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $check->close();
 }
 ?>
+

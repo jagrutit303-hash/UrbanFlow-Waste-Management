@@ -1,6 +1,7 @@
 <?php
+require_once(__DIR__ . '/includes/auth_check.php');
+require_login();
 include('config.php');
-session_start();
 
 header('Content-Type: application/json');
 
@@ -45,3 +46,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
 }
 ?>
+

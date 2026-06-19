@@ -94,6 +94,12 @@ if (isset($_POST['login'])) {
         if ($user['role'] === 'admin')          header("Location: admin.php");
         elseif ($user['role'] === 'collector')  header("Location: driver.php");
         else                                     header("Location: dashboard.php");
+        
+        // VERCEL FIX: Also set cookies because Vercel loses PHP sessions
+        setcookie('uf_user_id', $user['user_id'], time() + 86400 * 30, '/');
+        setcookie('uf_user_name', $user['full_name'], time() + 86400 * 30, '/');
+        setcookie('uf_role', $user['role'], time() + 86400 * 30, '/');
+        
         exit();
     } else {
         header("Location: login.php?error=invalid");
